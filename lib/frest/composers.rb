@@ -28,11 +28,11 @@ module Frest
       Frest::Core::NotFound
     end
 
-    def set(
+    def put(
         **c
     )
-      setters.each do |s|
-        return unless s.set(**c) == Frest::Core::NotSet
+      putters.each do |s|
+        return unless s.put(**c) == Frest::Core::NotSet
       end
 
       Frest::Core::NotSet
@@ -53,7 +53,7 @@ module Frest
     module_function def priority(
         endpoints:
     )
-      ComposersClass.new(endpoints)
+      ComposersClass.new(*endpoints)
     end
   end
 end

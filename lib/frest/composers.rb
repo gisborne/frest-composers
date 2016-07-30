@@ -3,16 +3,16 @@ require 'frest/core'
 
 module Frest
   class ComposersClass
-    attr_accessor :getters, :putters, :deleters
+    attr_accessor :getters, :setters, :deleters
 
     def initialize(*stores)
       @getters  = []
-      @putters  = []
+      @setters  = []
       @deleters = []
 
       stores.each do |store|
         getters << store if store.respond_to? :get
-        putters << store if store.respond_to? :put
+        setters << store if store.respond_to? :set
         deleters << store if store.respond_to? :delete
       end
     end
@@ -28,11 +28,11 @@ module Frest
       Frest::Core::NotFound
     end
 
-    def put(
+    def set(
         **c
     )
-      putters.each do |s|
-        return unless s.put(**c) == Frest::Core::NotSet
+      setters.each do |s|
+        return unless s.set(**c) == Frest::Core::NotSet
       end
 
       Frest::Core::NotSet

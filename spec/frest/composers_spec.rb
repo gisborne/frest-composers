@@ -37,7 +37,7 @@ describe Frest::Composers do
         self[id] || Frest::Core::NotFound
       end
 
-      def n.put(id:, content:)
+      def n.set(id:, content:)
         self[id] = content
       end
 
@@ -54,7 +54,7 @@ describe Frest::Composers do
     expect(composed.get id: 'c').to eq(2)
     expect(composed.get id: 'foo').to eq (Frest::Core::NotFound)
 
-    composed.put(
+    composed.set(
         id: 'foo',
         content: :this_is_foo
     )
